@@ -10,16 +10,9 @@ class DeckListView extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.addQuestion = this.addQuestion.bind(this);
   }
 
-  addQuestion() {
-
-    console.log("Hello")
-
-  }
-
-    static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({ navigation }) => {
     return {
         title: 'Decks',
         headerRight: (
@@ -43,11 +36,8 @@ class DeckListView extends Component {
           data={decks}
           renderItem={({item}) => (
             <Deck
+              navigation={navigation}
               deck={item}
-              onPress={() => navigate(
-                'DeckView', 
-                {deck: item}
-                )}
             />
           )}
         />

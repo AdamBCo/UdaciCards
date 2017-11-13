@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { gray, blue } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
+import { getDeck } from '../helpers/storage'
+
 import Question from './Question'
 
 
@@ -12,55 +14,63 @@ class DeckView extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.addQuestion = this.addQuestion.bind(this);
-  }
-
-  addQuestion() {
-    let nextIndex = ++this.props.index;
-    this.props.navigator.push({
-      component: MyScene,
-      title: 'Scene ' + nextIndex,
-      passProps: {index: nextIndex}
-    });
   }
   
-  static navigationOptions = ({ navigation }) => {
-    const { title } = navigation.state.params.deck
-    return {
-        title,
-        headerRight: (
-        <Button
-          onPress={this.addQuestion}
-          title="Add"
-        />
-      )
-    }
+  // static navigationOptions = ({ navigation }) => {
+  //   const { title, id } = navigation.state.params.deck
+  //   return {
+  //       title,
+  //       headerRight: (
+  //         <Button
+  //         onPress={() => navigation.navigate(
+  //           'EditQuestionView',
+  //           {
+  //             question: {},
+  //             id: id
+  //           }
+  //         )}
+  //         title="Add"
+  //       />
+  //     )
+  //   }
+  // }
+
+  componentDidMount() {
+
+    const { navigation } = this.props
+    const {id} = navigation.state.params
+    console.log(id)
+
   }
 
   render() {
-
-    console.log(this.props)
-
-    const { navigation } = this.props
-
-    if (navigation.state.params.deck == null) 
-      return null
-
-    const {title, questions} = navigation.state.params.deck
-
     return (
-      <View style={styles.container}>
-        <FlatList
-          data={questions}
-          renderItem={({item}) => (
-            <Question 
-            navigation={navigation}
-            question={item}/>
-          )}
-        />
-      </View>
-    )
+      <View style={styles.container}></View>
+      )
   }
+
+  // render() {
+
+  //   const { navigation } = this.props
+
+  //   if (navigation.state.params.deck == null) 
+  //     return null
+
+  //   const {title, questions, id} = navigation.state.params.deck
+
+  //   return (
+  //     <View style={styles.container}>
+  //       <FlatList
+  //         data={questions}
+  //         renderItem={({item}) => (
+  //           <Question 
+  //           navigation={navigation}
+  //           question={item}/>
+  //         )}
+  //       />
+  //     </View>
+  //   )
+  // }
 }
 
 DeckView.propTypes = {

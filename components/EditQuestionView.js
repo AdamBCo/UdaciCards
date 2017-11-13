@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import { gray, blue, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
+import { createQuestion } from '../redux/modules/decks'
+
+
 class EditQuestionView extends Component {
 
   state = {
@@ -29,30 +32,43 @@ class EditQuestionView extends Component {
 
   onSave() {
 
-    const {navigation} = this.props
+    const {navigation, dispatch} = this.props
+    const {deckID} = this.props.navigation.state.params
+    const { question, answer} = this.state
+
+    // if (question.id !== null) {
+
+    // } else {
+      dispatch(createQuestion(deckID, question, answer))
+    // }
+
     navigation.goBack(null);
 
   }
 
   render() {
 
-    const { question, answer } = this.state
+    const question = this.state.question ? this.state.question : ""
+    const answer = this.state.answer ? this.state.answer : ""
 
     return (
       <View style={styles.container}>
         <TextInput
           style={styles.textinput}
           value={question}
+          placeholder="Question"
+          onChangeText={(question) => this.setState({question})}
         />
         <TextInput
           style={styles.textinput}
           value={answer}
+          placeholder="Answer"
+          onChangeText={(answer) => this.setState({answer})}
         />
         <Button
           onPress={this.onSave}
           title="Save"
         />
-        <Text>Nice View</Text>
       </View>
     )
   }

@@ -8,7 +8,7 @@ import { createDeck } from '../redux/modules/decks'
 class CreateDeckView extends Component {
 
   state = {
-    title: ""
+    text: ""
   }
 
   constructor(props, context) {
@@ -18,10 +18,13 @@ class CreateDeckView extends Component {
 
   onSave() {
 
-    const {navigation} = this.props
-    const {title} = this.state
+    console.log("Save")
 
-    createDeck(title)
+    const {navigation, dispatch} = this.props
+    const {text} = this.state
+
+    dispatch(createDeck(text))
+
     navigation.goBack(null);
 
   }
@@ -35,6 +38,7 @@ class CreateDeckView extends Component {
         <TextInput
           style={styles.textinput}
           value={title}
+          onChangeText={(text) => this.setState({text})}
         />
         <Button
           onPress={this.onSave}
@@ -58,11 +62,9 @@ const styles = StyleSheet.create({
     alignItems: 'stretch'
   },
   textinput: {
-    height: 44, 
+    height: 44,
     borderColor: 'gray', 
     borderWidth: 1,
-    backgroundColor: blue,
-    padding: 5,
   },
   saveButton: {
     flex: 1,

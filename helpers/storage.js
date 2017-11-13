@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import store from '../store/store';
+import store from '../redux/store';
 
 const DB_KEY = '@UdaciCards:key';
 

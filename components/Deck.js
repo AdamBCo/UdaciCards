@@ -6,13 +6,32 @@ import { white, gray, orange } from '../utils/colors'
 
 class Deck extends React.Component {
 
+  constructor(props, context) {
+    super(props, context);
+    this.onPress = this.onPress.bind(this);
+  }
+
+  onPress() {
+
+
+
+    
+    const {question, navigation, deck} = this.props
+    const {navigate} = navigation
+
+    navigate(
+      'DeckView',
+      {id: deck.id}
+    )
+  }
+
   render () {
 
-    const {deck, onPress} = this.props
+    const {deck} = this.props
     const {title, questions} = deck
 
     return (
-      <TouchableHighlight onPress={onPress} style={styles.touchableHighlight}>
+      <TouchableHighlight onPress={this.onPress} style={styles.touchableHighlight}>
         <View style={styles.wrapper}>
           <View>
             <Text style={styles.title}>{title}</Text>
