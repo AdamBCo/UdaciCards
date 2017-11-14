@@ -3,7 +3,9 @@ import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 import { gray, blue, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
-import { createDeck } from '../redux/modules/decks'
+
+import { createDeck } from '../utils/helpers'
+
 
 class CreateDeckView extends Component {
 
@@ -18,14 +20,13 @@ class CreateDeckView extends Component {
 
   onSave() {
 
-    console.log("Save")
-
     const {navigation, dispatch} = this.props
     const {text} = this.state
 
-    dispatch(createDeck(text))
+    createDeck(text).then(data => { 
+      navigation.goBack(null);
 
-    navigation.goBack(null);
+    })
 
   }
 

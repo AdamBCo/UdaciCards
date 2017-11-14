@@ -39,7 +39,9 @@ class EditQuestionView extends Component {
     // if (question.id !== null) {
 
     // } else {
-      dispatch(createQuestion(deckID, question, answer))
+    createQuestion(deckID, question, answer).then(data => { 
+      console.log(data)
+    })
     // }
 
     navigation.goBack(null);

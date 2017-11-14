@@ -2,6 +2,8 @@ import uuid from 'uuid';
 
 // Actions
 
+const SET_DECKS = 'SET_DECKS'
+
 const CREATE_DECK = 'CREATE_DECK'
 const UPDATE_DECK = 'UPDATE_DECK'
 const DELETE_DECK = 'DELETE_DECK'
@@ -10,32 +12,24 @@ const CREATE_QUESTION = 'CREATE_QUESTION'
 const DELETE_QUESTION = 'DELETE_QUESTION'
 const UPDATE_QUESTION = 'EDIT_QUESTION'
 
-const initialState = {
-  decks: [
-  {
-    id: "1234567",
-    title: "React",
-    questions: [
-      {
-        id: "513513461",
-        question: "Where do you make Ajax requests in React?",
-        answer: "The coolest"
-      },
-      {
-        id: "15313461",
-        question: "Where do you make Ajax requests in React?",
-        answer: "The coolest"
-      }
-      ]
-    }
-  ]
-}
 
 // Reducer
-export default function reducer(state = initialState, action = {}) {
+export default function reducer(state = {}, action = {}) {
 
   switch (action.type)
   {
+
+    case SET_DECKS: {
+
+      let deck = action.decks;
+
+      return {
+        ...state,
+        decks
+      }
+
+    }
+
     case CREATE_DECK: {
 
       let deck = {};
@@ -81,6 +75,13 @@ export default function reducer(state = initialState, action = {}) {
     default:
       return state
   }
+};
+
+export var setDecks = (decks) => {
+  return {
+    type: SET_DECKS,
+    decks
+  };
 };
 
 export var createDeck = (title) => {

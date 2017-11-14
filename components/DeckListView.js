@@ -5,8 +5,15 @@ import { connect } from 'react-redux'
 import { blue } from '../utils/colors'
 
 import Deck from './Deck'
+import { getDecks } from '../utils/helpers'
+import { setDecks } from '../redux/modules/decks'
+
 
 class DeckListView extends Component {
+
+  state = {
+    decks: {}
+  };
 
   constructor(props, context) {
     super(props, context);
@@ -24,22 +31,44 @@ class DeckListView extends Component {
     }
   }
 
+  componentDidMount() {
+
+    getDecks().then(decks => {
+
+      this.setState({
+        decks
+      }); 
+
+      console.log('STATE ', this.state)
+    })
+
+  }
+
+  renderItem = ({item}) => {
+    const { navigation } = this.props;
+    const { decks } = this.state
+
+    const deck = decks[item]
+
+    return (
+      <Deck
+        navigation={navigation}
+        deck={deck}
+      />
+    );
+  }
+
 
   render() {
 
-    const {decks, navigation} = this.props
-    const {navigate} = navigation
+    const {navigation} = this.props
+    const {decks} = this.state
 
     return (
       <View style={styles.container} >
         <FlatList
-          data={decks}
-          renderItem={({item}) => (
-            <Deck
-              navigation={navigation}
-              deck={item}
-            />
-          )}
+          data={Object.keys(decks)}
+          renderItem={this.renderItem}
         />
       </View>
     )
@@ -55,16 +84,10 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = (state) => ({
-  decks: state.decks.decks
-});
-
 
 DeckListView.propTypes = {
-  decks: PropTypes.array
+  decks: PropTypes.Object
 };
 
-export default connect(
-  mapStateToProps
-)(DeckListView)
+export default connect()(DeckListView)
 

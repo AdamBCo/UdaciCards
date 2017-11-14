@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { gray, blue } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
-import { getDeck } from '../helpers/storage'
+import { getDeck } from '../utils/helpers'
+
 
 import Question from './Question'
 
@@ -12,65 +13,82 @@ import Question from './Question'
 
 class DeckView extends Component {
 
+  state = {
+    deck: null
+  };
+
   constructor(props, context) {
     super(props, context);
   }
-  
-  // static navigationOptions = ({ navigation }) => {
-  //   const { title, id } = navigation.state.params.deck
-  //   return {
-  //       title,
-  //       headerRight: (
-  //         <Button
-  //         onPress={() => navigation.navigate(
-  //           'EditQuestionView',
-  //           {
-  //             question: {},
-  //             id: id
-  //           }
-  //         )}
-  //         title="Add"
-  //       />
-  //     )
-  //   }
-  // }
 
   componentDidMount() {
 
-    const { navigation } = this.props
-    const {id} = navigation.state.params
-    console.log(id)
+    const {title} = this.props.navigation.state.params.deck
+
+          console.log("ID ", title )
+
+    getDeck(title).then(deck => {
+
+      console.log("RESGS ", deck)
+
+      this.setState({
+        deck
+      });
+
+      console.log("ST ", this.state)
+    })
 
   }
+  
+  static navigationOptions = ({ navigation }) => {
+    const { deck } = navigation.state.params
+    return {
+      title: deck.title,
+        headerRight: (
+          <Button
+          onPress={() => navigation.navigate(
+            'EditQuestionView'
+          )}
+          title="Add"
+        />
+      )
+    }
+  }
+
+    render() {
+      return <View></View>
+    }
+
 
   render() {
+
+    const { navigation } = this.props
+    const { deck } = this.state
+
+    console.log("DECKCK ", deck)
+
+    if (deck == null) 
+      return null
+
+    const {questions} = deck
+
     return (
-      <View style={styles.container}></View>
-      )
+      <View style={styles.container}>
+        <FlatList
+          data={questions}
+          renderItem={({item}) => (
+            <Question 
+            navigation={navigation}
+            question={item}/>
+          )}
+        />
+        <Button
+          style={styles.quizButton}
+          title="START QUIZ"
+        />
+      </View>
+    )
   }
-
-  // render() {
-
-  //   const { navigation } = this.props
-
-  //   if (navigation.state.params.deck == null) 
-  //     return null
-
-  //   const {title, questions, id} = navigation.state.params.deck
-
-  //   return (
-  //     <View style={styles.container}>
-  //       <FlatList
-  //         data={questions}
-  //         renderItem={({item}) => (
-  //           <Question 
-  //           navigation={navigation}
-  //           question={item}/>
-  //         )}
-  //       />
-  //     </View>
-  //   )
-  // }
 }
 
 DeckView.propTypes = {
@@ -86,31 +104,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'stretch'
   },
-  deckDetails: {
-    padding: 30
-  },
-  titleView: {
-    marginBottom: 15
-  },
-  titleText: {
-    fontSize: 28,
-    color: gray
-  },
-  cardCountView: {
-    marginBottom: 15
-  },
-  cardCountText: {
-    fontSize: 18,
-    color: gray
-  },
-  cardCountNumber: {
-    fontSize: 20,
-    fontWeight: '600'
-  },
-  buttonWrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginVertical: 20
+  quizButton: {
+    flex: 1,
+    height: 44,
+    backgroundColor: blue,
   }
 })
 

@@ -12,16 +12,15 @@ class Deck extends React.Component {
   }
 
   onPress() {
-
-
-
     
     const {question, navigation, deck} = this.props
     const {navigate} = navigation
 
+    console.log("D ", deck)
+
     navigate(
       'DeckView',
-      {id: deck.id}
+      { deck }
     )
   }
 
@@ -29,6 +28,8 @@ class Deck extends React.Component {
 
     const {deck} = this.props
     const {title, questions} = deck
+
+    console.log("DECL ", deck)
 
     return (
       <TouchableHighlight onPress={this.onPress} style={styles.touchableHighlight}>

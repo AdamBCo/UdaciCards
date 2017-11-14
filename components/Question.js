@@ -12,9 +12,7 @@ class Question extends React.Component {
   }
 
   onPress() {
-
-    console.log(this.props)
-
+    
     const {question, navigation} = this.props
     const {navigate} = navigation
 
