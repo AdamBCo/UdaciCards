@@ -12,6 +12,7 @@ import CreateDeckView from './components/CreateDeckView'
 import NewDeckView from './components/NewDeckView'
 import DeckView from './components/DeckView'
 import EditQuestionView from './components/EditQuestionView'
+import QuizView from './components/QuizView'
 
 import { purple, white } from './utils/colors'
 
@@ -61,7 +62,7 @@ const MainNavigator = StackNavigator(
     screen: DeckListView,
     path: 'decks',
     navigationOptions: () => ({
-      title: `All Decks`
+      title: 'All Decks'
     })
   },
   DeckView: {
@@ -76,7 +77,13 @@ const MainNavigator = StackNavigator(
   },
   CreateDeckView: {
     screen: CreateDeckView
-  }
+  },
+  QuizView: {
+    screen: QuizView,
+    navigationOptions: {
+      title: 'Quiz'
+    }
+  },
 }, 
 {
   navigationOptions: {

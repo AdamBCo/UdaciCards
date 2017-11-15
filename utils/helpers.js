@@ -8,7 +8,7 @@ export const getDecks = async () => {
 	    let decks = (await JSON.parse(response)) || {};
 	    return decks;
 	} catch (error) {
-      console.log(error);
+      	console.log(error);
       return {};
     }
 };
@@ -22,22 +22,13 @@ export const getDeck = async (deckID) => {
   }
 }
 
-export const saveDecks = async () => {
-	try {
-		await AsyncStorage.setItem(DATABASE_KEY, JSON.stringify(decks));
-	} catch (error) {
-		console.warn('Error adding card to deck:', error);
-	}
-};
-
-
 export const createDeck = async (title) => {
   try {
     let decks = await getDecks();
-    decks[title] = { title, questions: [] };
-
-    console.log("DECKING ", decks)
-
+    decks[title] = { 
+    	title, 
+    	questions: [] 
+    };
     await AsyncStorage.setItem(DATABASE_KEY, JSON.stringify(decks));
     return decks[title];
   } catch (error) {
@@ -45,3 +36,19 @@ export const createDeck = async (title) => {
   }
   return null;
 }
+
+export const createQuestionForDeck = async (title, card) => {
+  try {
+    let decks = await getDecks();
+    decks[title] = { 
+    	title, 
+        questions: decks[title].questions.concat(card)
+    };
+    await AsyncStorage.setItem(DATABASE_KEY, JSON.stringify(decks));
+    return decks[title];
+  } catch (error) {
+    console.log(error);
+  }
+  return null;
+}
+

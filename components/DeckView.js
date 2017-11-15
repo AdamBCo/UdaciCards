@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet, Button, FlatList } from 'react-native'
 import { connect } from 'react-redux'
-import { gray, blue } from '../utils/colors'
+import { gray, red, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
 import { getDeck } from '../utils/helpers'
@@ -19,23 +19,19 @@ class DeckView extends Component {
 
   constructor(props, context) {
     super(props, context);
+    this.onQuizButtonPressed = this.onQuizButtonPressed.bind(this);
   }
 
   componentDidMount() {
 
     const {title} = this.props.navigation.state.params.deck
 
-          console.log("ID ", title )
-
     getDeck(title).then(deck => {
-
-      console.log("RESGS ", deck)
 
       this.setState({
         deck
       });
 
-      console.log("ST ", this.state)
     })
 
   }
@@ -47,7 +43,8 @@ class DeckView extends Component {
         headerRight: (
           <Button
           onPress={() => navigation.navigate(
-            'EditQuestionView'
+            'EditQuestionView',
+            { title: deck.title }
           )}
           title="Add"
         />
@@ -55,17 +52,25 @@ class DeckView extends Component {
     }
   }
 
-    render() {
-      return <View></View>
-    }
+  // Actions
+
+  onQuizButtonPressed() {
+
+    const { navigate } = this.props.navigation
+    const { deck } = this.state
+
+    navigate(
+      'QuizView',
+      { questions: deck.questions }
+    )
+
+  }
 
 
   render() {
 
     const { navigation } = this.props
     const { deck } = this.state
-
-    console.log("DECKCK ", deck)
 
     if (deck == null) 
       return null
@@ -85,6 +90,7 @@ class DeckView extends Component {
         <Button
           style={styles.quizButton}
           title="START QUIZ"
+          onPress={this.onQuizButtonPressed}
         />
       </View>
     )
@@ -99,7 +105,7 @@ DeckView.propTypes = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: blue,
+    backgroundColor: white,
     padding: 5,
     justifyContent: 'space-between',
     alignItems: 'stretch'
@@ -107,7 +113,7 @@ const styles = StyleSheet.create({
   quizButton: {
     flex: 1,
     height: 44,
-    backgroundColor: blue,
+    backgroundColor: red,
   }
 })
 

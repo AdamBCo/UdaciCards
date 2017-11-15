@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { gray, blue, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
-import { createQuestion } from '../redux/modules/decks'
+import { createQuestionForDeck } from '../utils/helpers'
+
 
 
 class EditQuestionView extends Component {
@@ -19,30 +20,18 @@ class EditQuestionView extends Component {
     this.onSave = this.onSave.bind(this);
   }
 
-  componentDidMount() {
-
-    const {question, answer} = this.props.navigation.state.params.question
-
-    this.setState({
-      question,
-      answer
-    })
-
-  }
 
   onSave() {
+    const { navigation } = this.props
+    const { title } = navigation.state.params
+    const { question, answer } = this.state
 
-    const {navigation, dispatch} = this.props
-    const {deckID} = this.props.navigation.state.params
-    const { question, answer} = this.state
+    let card = { 
+      question, 
+      answer
+    }
 
-    // if (question.id !== null) {
-
-    // } else {
-    createQuestion(deckID, question, answer).then(data => { 
-      console.log(data)
-    })
-    // }
+    createQuestionForDeck(title, card)
 
     navigation.goBack(null);
 

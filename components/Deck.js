@@ -29,8 +29,6 @@ class Deck extends React.Component {
     const {deck} = this.props
     const {title, questions} = deck
 
-    console.log("DECL ", deck)
-
     return (
       <TouchableHighlight onPress={this.onPress} style={styles.touchableHighlight}>
         <View style={styles.wrapper}>
