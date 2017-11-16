@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Button } from 'react-native'
 import { connect } from 'react-redux'
-import { white, red, green, gray, blue } from '../utils/colors'
 
-import { clearLocalNotification } from '../utils/notifications'
+import { white, red, green, gray, blue } from '../../utils/colors'
+
+import { clearLocalNotification } from '../../utils/notifications'
 
 
 class QuizView extends Component {
@@ -57,7 +58,7 @@ class QuizView extends Component {
     const { answer, num, score, completed } = this.state
 
     return (
-      <View style={styles.container}>
+      <View>
         {!completed ?
           <View>
 
@@ -104,12 +105,6 @@ class QuizView extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: white,
-    padding: 5,
-    alignItems: 'stretch'
-  },
   numberRemaining: {
     textAlign: 'center',
     fontSize: 18,

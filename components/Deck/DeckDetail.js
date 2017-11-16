@@ -1,23 +1,22 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Button } from 'react-native'
 import { connect } from 'react-redux'
-import { gray, red, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
-import { getDeck } from '../utils/helpers'
+
+import { gray, green, white } from '../../utils/colors'
+import { getDeck } from '../../utils/helpers'
 
 
-import Question from './Question'
+import Question from '../Question/Question'
 
 
-
-class DeckView extends Component {
+class DeckDetail extends Component {
 
   constructor(props, context) {
     super(props, context);
     this.onQuizButtonPressed = this.onQuizButtonPressed.bind(this);
   }
-
   
   static navigationOptions = ({ navigation }) => {
     const { deck } = navigation.state.params
@@ -26,7 +25,7 @@ class DeckView extends Component {
       headerRight: (
         <Button
         onPress={() => navigation.navigate(
-          'CreateQuestionView',
+          'CreateQuestion',
           { title: deck.title }
         )}
         title="Add"
@@ -44,9 +43,11 @@ class DeckView extends Component {
 
     const deck = decks[title]
 
-    navigate(
-      'QuizView',
-      { questions: deck.questions }
+    navigation.navigate(
+      'Quiz',
+      { 
+        questions: deck.questions 
+      }
     )
 
   }
@@ -65,7 +66,7 @@ class DeckView extends Component {
     const {questions} = deck
 
     return (
-      <View style={styles.container}>
+      <View>
         <FlatList
           data={questions}
           renderItem={({item}) => (
@@ -83,26 +84,17 @@ class DeckView extends Component {
   }
 }
 
-DeckView.propTypes = {
+DeckDetail.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: white,
-    padding: 5,
-    justifyContent: 'space-between',
-    alignItems: 'stretch'
-  },
   quizButton: {
-    padding: 20,
-    backgroundColor: red,
+    padding: 12,
+    backgroundColor: green,
     borderRadius: 12,
-    marginLeft: 0,
-    marginRight: 0,
-    marginBottom: 40
+    margin: 16
   },
   buttonText: {
     color: white,
@@ -115,4 +107,4 @@ const mapStateToProps = state => ({
   decks: state.decks.decks
 });
 
-export default connect(mapStateToProps)(DeckView)
+export default connect(mapStateToProps)(DeckDetail)

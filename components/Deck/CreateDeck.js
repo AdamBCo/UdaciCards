@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { gray, blue, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
-import { createDeck } from '../utils/helpers'
-import { setDecks } from '../redux/modules/decks'
+import { gray, blue, white } from '../../utils/colors'
+import { createDeck } from '../../utils/helpers'
+
+import { setDecks } from '../../redux/modules/decks'
 
 
-class CreateDeckView extends Component {
+class CreateDeck extends Component {
 
   state = {
     text: ""
@@ -16,10 +17,10 @@ class CreateDeckView extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.onSave = this.onSave.bind(this);
+    this.onSaveButtonPressed = this.onSaveButtonPressed.bind(this);
   }
 
-  onSave() {
+  onSaveButtonPressed() {
 
     const {navigation, dispatch} = this.props
     const {text} = this.state
@@ -36,44 +37,41 @@ class CreateDeckView extends Component {
     const { title } = this.state
 
     return (
-      <View style={styles.container}>
+      <View>
         <TextInput
+          placeholder="New Deck Name"
           style={styles.textinput}
           value={title}
           onChangeText={(text) => this.setState({text})}
         />
-        <Button
-          onPress={this.onSave}
-          title="Save"
-        />
+        <TouchableOpacity style={styles.saveButton} onPress={this.onSaveButtonPressed}>
+          <Text style={styles.buttonText}>Save</Text>
+        </TouchableOpacity>
       </View>
     )
   }
 }
 
-// EditQuestionView.propTypes = {
-//   question: PropTypes.object.isRequired,
-// };
-
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: white,
-    padding: 5,
-    alignItems: 'stretch'
-  },
   textinput: {
     height: 44,
     borderColor: 'gray', 
     borderWidth: 1,
+    paddingLeft: 16,
+    paddingRight: 16,
+    margin: 16
   },
   saveButton: {
-    flex: 1,
+    padding: 12,
     backgroundColor: blue,
-    padding: 5,
-    alignItems: 'stretch'
+    borderRadius: 12,
+    margin: 16
   },
+  buttonText: {
+    color: white,
+    fontSize: 20,
+    textAlign: 'center',
+  }
 })
 
-export default connect()(CreateDeckView)
+export default connect()(CreateDeck)

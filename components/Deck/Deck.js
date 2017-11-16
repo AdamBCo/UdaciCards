@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet, Platform, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
-import { white, gray, orange } from '../utils/colors'
+
+import { white, gray, orange } from '../../utils/colors'
 
 
 class Deck extends React.Component {
@@ -16,10 +17,8 @@ class Deck extends React.Component {
     const {question, navigation, deck} = this.props
     const {navigate} = navigation
 
-    console.log("D ", deck)
-
     navigate(
-      'DeckView',
+      'DeckDetail',
       { deck }
     )
   }
@@ -63,7 +62,9 @@ const styles = StyleSheet.create({
     paddingVertical: 7.5,
     paddingHorizontal: 15,
     borderRadius: 5,
-    backgroundColor: white
+    backgroundColor: white,
+    borderBottom: gray,
+    borderStyle: 'solid',
   },
   title: {
     fontSize: 30,

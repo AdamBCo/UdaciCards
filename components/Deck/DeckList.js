@@ -2,18 +2,15 @@ import React, { Component, PropTypes } from 'react'
 import { FlatList, StyleSheet, View, Text, StatusBar, Button } from 'react-native';
 
 import { connect } from 'react-redux'
-import { blue } from '../utils/colors'
 
 import Deck from './Deck'
-import { getDecks } from '../utils/helpers'
-import { setDecks } from '../redux/modules/decks'
+
+import { blue } from '../../utils/colors'
+import { getDecks } from '../../utils/helpers'
+import { setDecks } from '../../redux/modules/decks'
 
 
-class DeckListView extends Component {
-
-  state = {
-    decks: {}
-  };
+class DeckList extends Component {
 
   constructor(props, context) {
     super(props, context);
@@ -24,7 +21,7 @@ class DeckListView extends Component {
         title: 'Decks',
         headerRight: (
           <Button
-          onPress={() => navigation.navigate('CreateDeckView')}
+          onPress={() => navigation.navigate('CreateDeck')}
           title="Add"
         />
       )
@@ -60,7 +57,7 @@ class DeckListView extends Component {
     const decks = this.props.decks ? this.props.decks : {}
 
     return (
-      <View style={styles.container} >
+      <View>
         <FlatList
           data={Object.keys(decks)}
           renderItem={this.renderItem}
@@ -80,7 +77,7 @@ const styles = StyleSheet.create({
 })
 
 
-DeckListView.propTypes = {
+DeckList.propTypes = {
   decks: PropTypes.Object
 };
 
@@ -89,5 +86,5 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps)(DeckListView)
+export default connect(mapStateToProps)(DeckList)
 

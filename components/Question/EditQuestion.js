@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { gray, blue, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
-import { updateQuestionForDeck } from '../utils/helpers'
-import { setDecks } from '../redux/modules/decks'
+import { gray, blue, white } from '../../utils/colors'
+
+import { updateQuestionForDeck } from '../../utils/helpers'
+import { setDecks } from '../../redux/modules/decks'
 
 
-class EditQuestionView extends Component {
+class EditQuestion extends Component {
 
   state = {
     question: "",
@@ -58,7 +59,7 @@ class EditQuestionView extends Component {
     const answer = this.state.answer ? this.state.answer : ""
 
     return (
-      <View style={styles.container}>
+      <View>
         <TextInput
           style={styles.textinput}
           value={question}
@@ -71,39 +72,34 @@ class EditQuestionView extends Component {
           placeholder="Answer"
           onChangeText={(answer) => this.setState({answer})}
         />
-        <Button
-          onPress={this.onSave}
-          title="Save"
-        />
+        <TouchableOpacity style={styles.saveButton} onPress={this.onSaveButtonPressed}>
+          <Text style={styles.buttonText}>Save</Text>
+        </TouchableOpacity>
       </View>
     )
   }
 }
 
-// EditQuestionView.propTypes = {
-//   question: PropTypes.object.isRequired,
-// };
-
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: white,
-    padding: 5,
-    alignItems: 'stretch'
-  },
   textinput: {
-    height: 44, 
+    height: 44,
     borderColor: 'gray', 
     borderWidth: 1,
-    backgroundColor: white,
-    padding: 5,
+    paddingLeft: 16,
+    paddingRight: 16,
+    margin: 16
   },
   saveButton: {
-    flex: 1,
-    padding: 5,
-    alignItems: 'stretch'
+    padding: 12,
+    backgroundColor: blue,
+    borderRadius: 12,
+    margin: 16
   },
+  buttonText: {
+    color: white,
+    fontSize: 20,
+    textAlign: 'center',
+  }
 })
 
-export default connect()(EditQuestionView)
+export default connect()(EditQuestion)

@@ -1,14 +1,15 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { gray, blue, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
-import { createQuestionForDeck } from '../utils/helpers'
-import { setDecks } from '../redux/modules/decks'
+import { gray, blue, white } from '../../utils/colors'
+
+import { createQuestionForDeck } from '../../utils/helpers'
+import { setDecks } from '../../redux/modules/decks'
 
 
-class CreateQuestionView extends Component {
+class CreateQuestion extends Component {
 
   state = {
     question: "",
@@ -17,10 +18,10 @@ class CreateQuestionView extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.onSave = this.onSave.bind(this);
+    this.onSaveButtonPressed = this.onSaveButtonPressed.bind(this);
   }
 
-  onSave() {
+  onSaveButtonPressed() {
     const { title } = this.props.navigation.state.params
     const { navigation, dispatch } = this.props
     const { question, answer } = this.state
@@ -42,7 +43,7 @@ class CreateQuestionView extends Component {
     const { question, answer } = this.state
 
     return (
-      <View style={styles.container}>
+      <View>
         <TextInput
           style={styles.textinput}
           value={question}
@@ -55,34 +56,34 @@ class CreateQuestionView extends Component {
           placeholder="Answer"
           onChangeText={(answer) => this.setState({answer})}
         />
-        <Button
-          onPress={this.onSave}
-          title="Save"
-        />
+        <TouchableOpacity style={styles.saveButton} onPress={this.onSaveButtonPressed}>
+          <Text style={styles.buttonText}>Save</Text>
+        </TouchableOpacity>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: white,
-    padding: 5,
-    alignItems: 'stretch'
-  },
   textinput: {
-    height: 44, 
+    height: 44,
     borderColor: 'gray', 
     borderWidth: 1,
-    backgroundColor: white,
-    padding: 5,
+    paddingLeft: 16,
+    paddingRight: 16,
+    margin: 16
   },
   saveButton: {
-    flex: 1,
-    padding: 5,
-    alignItems: 'stretch'
+    padding: 12,
+    backgroundColor: blue,
+    borderRadius: 12,
+    margin: 16
   },
+  buttonText: {
+    color: white,
+    fontSize: 20,
+    textAlign: 'center',
+  }
 })
 
-export default connect()(CreateQuestionView)
+export default connect()(CreateQuestion)

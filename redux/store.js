@@ -1,13 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import clientMiddleware from './middleware/clientMiddleware';
 
 import thunk from 'redux-thunk';
 import reducer from './reducer';
 
 const middlewares = [
   applyMiddleware(
-    thunk,
-    clientMiddleware
+    thunk
   )
 ];
 

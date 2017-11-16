@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet, Platform, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
-import { white, gray, orange } from '../utils/colors'
 
+import { white, gray, orange } from '../../utils/colors'
 
 class Question extends React.Component {
 
@@ -17,7 +17,7 @@ class Question extends React.Component {
     const {navigate} = navigation
 
     navigate(
-      'EditQuestionView',
+      'EditQuestion',
       {
         question: question,
         deck: deck

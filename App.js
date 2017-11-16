@@ -7,43 +7,53 @@ import { TabNavigator, StackNavigator } from 'react-navigation'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import { Constants } from 'expo'
 
-import DeckListView from './components/DeckListView'
-import CreateDeckView from './components/CreateDeckView'
-import NewDeckView from './components/NewDeckView'
-import DeckView from './components/DeckView'
-import EditQuestionView from './components/EditQuestionView'
-import CreateQuestionView from './components/CreateQuestionView'
-import QuizView from './components/QuizView'
+import { blue, white } from './utils/colors'
 
-import { purple, white } from './utils/colors'
+// Decks
+import DeckList from './components/Deck/DeckList'
+import CreateDeck from './components/Deck/CreateDeck'
+import DeckDetail from './components/Deck/DeckDetail'
+
+// Questions
+import CreateQuestion from './components/Question/CreateQuestion'
+import EditQuestion from './components/Question/EditQuestion'
+
+// Quiz
+import Quiz from './components/Quiz/Quiz'
+
 
 const MainNavigator = StackNavigator(
 {
   DeckList: {
-    screen: DeckListView,
+    screen: DeckList,
     path: 'decks',
-    navigationOptions: () => ({
+    navigationOptions: {
       title: 'All Decks'
-    })
+    }
   },
-  DeckView: {
-    screen: DeckView,
-    path: 'decks/:title',
-    navigationOptions: ({navigation, deck}) => ({
-      deck
-    })
+  DeckDetail: {
+    screen: DeckDetail
   },
-  CreateQuestionView: {
-    screen: CreateQuestionView
+  CreateQuestion: {
+    screen: CreateQuestion,
+    navigationOptions: {
+      title: 'Create'
+    }
   },
-  EditQuestionView: {
-    screen: EditQuestionView
+  EditQuestion: {
+    screen: EditQuestion,
+    navigationOptions: {
+      title: 'Edit'
+    }
   },
-  CreateDeckView: {
-    screen: CreateDeckView
+  CreateDeck: {
+    screen: CreateDeck,
+    navigationOptions: {
+      title: 'Create Deck'
+    }
   },
-  QuizView: {
-    screen: QuizView,
+  Quiz: {
+    screen: Quiz,
     navigationOptions: {
       title: 'Quiz'
     }
@@ -53,7 +63,7 @@ const MainNavigator = StackNavigator(
   navigationOptions: {
     headerTintColor: white,
     headerStyle: {
-      backgroundColor: purple
+      backgroundColor: blue
     }
   }
 })
