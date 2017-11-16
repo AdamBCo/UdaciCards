@@ -12,13 +12,16 @@ class Question extends React.Component {
   }
 
   onPress() {
-    
-    const {question, navigation} = this.props
+
+    const {question, navigation, deck} = this.props
     const {navigate} = navigation
 
     navigate(
       'EditQuestionView',
-      {question: question}
+      {
+        question: question,
+        deck: deck
+      }
     )
   }
 

@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import { gray, blue, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
-import { updateQuestionForDeck } from '../utils/helpers'
+import { createQuestionForDeck } from '../utils/helpers'
 
 
 
-class EditQuestionView extends Component {
+class CreateQuestionView extends Component {
 
   state = {
     question: "",
@@ -20,41 +20,24 @@ class EditQuestionView extends Component {
     this.onSave = this.onSave.bind(this);
   }
 
-  componentDidMount() {
-
-    const { question } = this.props.navigation.state.params
-
-    this.setState({
-      question: question.question,
-      answer: question.answer
-    })
-
-  }
-
-
   onSave() {
-
+    const { title } = this.props.navigation.state.params
     const { navigation } = this.props
     const { question, answer } = this.state
-
-    const title = navigation.state.params.deck.title
-    const originalText = navigation.state.params.question.question
 
     let card = { 
       question, 
       answer
     }
 
-    updateQuestionForDeck(title, originalText, card)
-
+    createQuestionForDeck(title, card)
     navigation.goBack(null);
 
   }
 
   render() {
 
-    const question = this.state.question ? this.state.question : ""
-    const answer = this.state.answer ? this.state.answer : ""
+    const { question, answer } = this.state
 
     return (
       <View style={styles.container}>
@@ -79,11 +62,6 @@ class EditQuestionView extends Component {
   }
 }
 
-// EditQuestionView.propTypes = {
-//   question: PropTypes.object.isRequired,
-// };
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -105,4 +83,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default connect()(EditQuestionView)
+export default connect()(CreateQuestionView)

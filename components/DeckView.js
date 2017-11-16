@@ -40,15 +40,15 @@ class DeckView extends Component {
     const { deck } = navigation.state.params
     return {
       title: deck.title,
-        headerRight: (
-          <Button
-          onPress={() => navigation.navigate(
-            'EditQuestionView',
-            { title: deck.title }
-          )}
-          title="Add"
-        />
-      )
+      headerRight: (
+        <Button
+        onPress={() => navigation.navigate(
+          'CreateQuestionView',
+          { title: deck.title }
+        )}
+        title="Add"
+      />
+    )
     }
   }
 
@@ -84,7 +84,8 @@ class DeckView extends Component {
           renderItem={({item}) => (
             <Question 
             navigation={navigation}
-            question={item}/>
+            question={item}
+            deck={deck}/>
           )}
         />
         <Button

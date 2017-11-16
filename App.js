@@ -12,49 +12,10 @@ import CreateDeckView from './components/CreateDeckView'
 import NewDeckView from './components/NewDeckView'
 import DeckView from './components/DeckView'
 import EditQuestionView from './components/EditQuestionView'
+import CreateQuestionView from './components/CreateQuestionView'
 import QuizView from './components/QuizView'
 
 import { purple, white } from './utils/colors'
-
-
-
-const Tabs = TabNavigator({
-  DeckListView: {
-    screen: DeckListView,
-    navigationOptions: {
-      tabBarLabel: 'DeckListView',
-      tabBarIcon: ({ tintColor }) => <Ionicons name='ios-bookmarks' size={30} color={tintColor} />
-    }
-  },
-  NewDeck: {
-    screen: NewDeckView,
-    navigationOptions: {
-      tabBarLabel: 'New Deck',
-      tabBarIcon: ({ tintColor }) => <FontAwesome name='plus-square' size={30} color={tintColor} />
-    },
-  }
-}, {
-  navigationOptions: {
-    headerTintColor: white,
-    headerStyle: {
-      backgroundColor: purple
-    }
-  },
-  tabBarOptions: {
-    activeTintColor: Platform.OS === 'ios' ? purple : white,
-    style: {
-      height: 56,
-      backgroundColor: Platform.OS === 'ios' ? white : purple,
-      shadowColor: 'rgba(0, 0, 0, 0.24)',
-      shadowOffset: {
-        width: 0,
-        height: 3
-      },
-      shadowRadius: 6,
-      shadowOpacity: 1
-    }
-  }
-})
 
 const MainNavigator = StackNavigator(
 {
@@ -71,6 +32,9 @@ const MainNavigator = StackNavigator(
     navigationOptions: ({navigation, deck}) => ({
       deck
     })
+  },
+  CreateQuestionView: {
+    screen: CreateQuestionView
   },
   EditQuestionView: {
     screen: EditQuestionView

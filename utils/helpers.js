@@ -52,3 +52,23 @@ export const createQuestionForDeck = async (title, card) => {
   return null;
 }
 
+export const updateQuestionForDeck = async (title, originalText, card) => {
+  try {
+    let decks = await getDecks();
+    let deck = decks[title]
+
+    let questions = deck.questions.map(function(question) { 
+    	return question.question == originalText ? card : question; 
+    });
+
+
+    decks[title].questions = questions
+    
+    await AsyncStorage.setItem(DATABASE_KEY, JSON.stringify(decks));
+    return decks[title];
+  } catch (error) {
+    console.log(error);
+  }
+  return null;
+}
+
