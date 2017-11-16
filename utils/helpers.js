@@ -30,7 +30,7 @@ export const createDeck = async (title) => {
     	questions: [] 
     };
     await AsyncStorage.setItem(DATABASE_KEY, JSON.stringify(decks));
-    return decks[title];
+    return decks;
   } catch (error) {
     console.log(error);
   }
@@ -45,7 +45,7 @@ export const createQuestionForDeck = async (title, card) => {
         questions: decks[title].questions.concat(card)
     };
     await AsyncStorage.setItem(DATABASE_KEY, JSON.stringify(decks));
-    return decks[title];
+    return decks;
   } catch (error) {
     console.log(error);
   }
@@ -61,11 +61,10 @@ export const updateQuestionForDeck = async (title, originalText, card) => {
     	return question.question == originalText ? card : question; 
     });
 
-
     decks[title].questions = questions
     
     await AsyncStorage.setItem(DATABASE_KEY, JSON.stringify(decks));
-    return decks[title];
+    return decks;
   } catch (error) {
     console.log(error);
   }

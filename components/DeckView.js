@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, StyleSheet, Button, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Button } from 'react-native'
 import { connect } from 'react-redux'
 import { gray, red, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
@@ -13,28 +13,11 @@ import Question from './Question'
 
 class DeckView extends Component {
 
-  state = {
-    deck: null
-  };
-
   constructor(props, context) {
     super(props, context);
     this.onQuizButtonPressed = this.onQuizButtonPressed.bind(this);
   }
 
-  componentDidMount() {
-
-    const {title} = this.props.navigation.state.params.deck
-
-    getDeck(title).then(deck => {
-
-      this.setState({
-        deck
-      });
-
-    })
-
-  }
   
   static navigationOptions = ({ navigation }) => {
     const { deck } = navigation.state.params
@@ -56,8 +39,10 @@ class DeckView extends Component {
 
   onQuizButtonPressed() {
 
-    const { navigate } = this.props.navigation
-    const { deck } = this.state
+    const {title} = this.props.navigation.state.params.deck
+    const { navigation, decks } = this.props
+
+    const deck = decks[title]
 
     navigate(
       'QuizView',
@@ -69,8 +54,10 @@ class DeckView extends Component {
 
   render() {
 
-    const { navigation } = this.props
-    const { deck } = this.state
+    const {title} = this.props.navigation.state.params.deck
+    const { navigation, decks } = this.props
+
+    const deck = decks[title]
 
     if (deck == null) 
       return null
@@ -88,11 +75,9 @@ class DeckView extends Component {
             deck={deck}/>
           )}
         />
-        <Button
-          style={styles.quizButton}
-          title="START QUIZ"
-          onPress={this.onQuizButtonPressed}
-        />
+        <TouchableOpacity style={styles.quizButton} onPress={this.onQuizButtonPressed}>
+          <Text style={styles.buttonText}>Start Quiz</Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -112,10 +97,22 @@ const styles = StyleSheet.create({
     alignItems: 'stretch'
   },
   quizButton: {
-    flex: 1,
-    height: 44,
+    padding: 20,
     backgroundColor: red,
-  }
+    borderRadius: 12,
+    marginLeft: 0,
+    marginRight: 0,
+    marginBottom: 40
+  },
+  buttonText: {
+    color: white,
+    fontSize: 20,
+    textAlign: 'center',
+  },
 })
 
-export default connect()(DeckView)
+const mapStateToProps = state => ({
+  decks: state.decks.decks
+});
+
+export default connect(mapStateToProps)(DeckView)

@@ -33,21 +33,16 @@ class DeckListView extends Component {
 
   componentDidMount() {
 
+    const { dispatch } = this.props;
+
     getDecks().then(decks => {
-
-      this.setState({
-        decks
-      }); 
-
-      console.log('STATE ', this.state)
+      dispatch(setDecks(decks))
     })
 
   }
 
   renderItem = ({item}) => {
-    const { navigation } = this.props;
-    const { decks } = this.state
-
+    const { navigation, decks} = this.props;
     const deck = decks[item]
 
     return (
@@ -62,7 +57,7 @@ class DeckListView extends Component {
   render() {
 
     const {navigation} = this.props
-    const {decks} = this.state
+    const decks = this.props.decks ? this.props.decks : {}
 
     return (
       <View style={styles.container} >
@@ -89,5 +84,10 @@ DeckListView.propTypes = {
   decks: PropTypes.Object
 };
 
-export default connect()(DeckListView)
+const mapStateToProps = state => ({
+  decks: state.decks.decks,
+});
+
+
+export default connect(mapStateToProps)(DeckListView)
 

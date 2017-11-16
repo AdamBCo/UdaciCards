@@ -5,7 +5,7 @@ import { gray, blue, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
 import { createQuestionForDeck } from '../utils/helpers'
-
+import { setDecks } from '../redux/modules/decks'
 
 
 class CreateQuestionView extends Component {
@@ -22,7 +22,7 @@ class CreateQuestionView extends Component {
 
   onSave() {
     const { title } = this.props.navigation.state.params
-    const { navigation } = this.props
+    const { navigation, dispatch } = this.props
     const { question, answer } = this.state
 
     let card = { 
@@ -30,8 +30,10 @@ class CreateQuestionView extends Component {
       answer
     }
 
-    createQuestionForDeck(title, card)
-    navigation.goBack(null);
+    createQuestionForDeck(title, card).then(decks => {
+      dispatch(setDecks(decks))
+      navigation.goBack(null);
+    })
 
   }
 

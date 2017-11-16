@@ -21,7 +21,7 @@ export default function reducer(state = {}, action = {}) {
 
     case SET_DECKS: {
 
-      let deck = action.decks;
+      let decks = action.decks
 
       return {
         ...state,
@@ -78,6 +78,9 @@ export default function reducer(state = {}, action = {}) {
 };
 
 export var setDecks = (decks) => {
+
+  console.log(decks)
+
   return {
     type: SET_DECKS,
     decks

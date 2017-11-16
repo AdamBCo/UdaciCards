@@ -5,7 +5,7 @@ import { gray, blue, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
 import { updateQuestionForDeck } from '../utils/helpers'
-
+import { setDecks } from '../redux/modules/decks'
 
 
 class EditQuestionView extends Component {
@@ -45,9 +45,10 @@ class EditQuestionView extends Component {
       answer
     }
 
-    updateQuestionForDeck(title, originalText, card)
-
-    navigation.goBack(null);
+    updateQuestionForDeck(title, originalText, card).then(decks => {
+      dispatch(setDecks(decks))
+      navigation.goBack(null);
+    })
 
   }
 

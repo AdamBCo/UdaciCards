@@ -5,6 +5,7 @@ import { gray, blue, white } from '../utils/colors'
 import {FontAwesome} from '@expo/vector-icons'
 
 import { createDeck } from '../utils/helpers'
+import { setDecks } from '../redux/modules/decks'
 
 
 class CreateDeckView extends Component {
@@ -23,9 +24,9 @@ class CreateDeckView extends Component {
     const {navigation, dispatch} = this.props
     const {text} = this.state
 
-    createDeck(text).then(data => { 
+    createDeck(text).then(decks => {
+      dispatch(setDecks(decks)) 
       navigation.goBack(null);
-
     })
 
   }
