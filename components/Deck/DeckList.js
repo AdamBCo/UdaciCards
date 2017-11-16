@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react'
-import { FlatList, StyleSheet, View, Text, StatusBar, Button } from 'react-native';
+import { FlatList, StyleSheet, View, Text, StatusBar, TouchableOpacity } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
 
 import { connect } from 'react-redux'
 
 import Deck from './Deck'
 
-import { blue } from '../../utils/colors'
+import { blue, white } from '../../utils/colors'
 import { getDecks } from '../../utils/helpers'
 import { setDecks } from '../../redux/modules/decks'
 
@@ -20,10 +21,9 @@ class DeckList extends Component {
     return {
         title: 'Decks',
         headerRight: (
-          <Button
-          onPress={() => navigation.navigate('CreateDeck')}
-          title="Add"
-        />
+        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('CreateDeck')}>
+          <Entypo name='plus' size={30} color={white} />
+        </TouchableOpacity>
       )
     }
   }
@@ -68,11 +68,10 @@ class DeckList extends Component {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
+  addButton: {
     backgroundColor: blue,
-    paddingVertical: 30,
-    paddingHorizontal: 15
+    paddingTop: 10.0,
+    paddingRight: 16.0
   }
 })
 

@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Button } from 'react-native'
 import { connect } from 'react-redux'
-import {FontAwesome} from '@expo/vector-icons'
+import { Entypo } from '@expo/vector-icons';
 
 
-import { gray, green, white } from '../../utils/colors'
+import { gray, green, white, blue } from '../../utils/colors'
 import { getDeck } from '../../utils/helpers'
 
 
@@ -23,13 +23,9 @@ class DeckDetail extends Component {
     return {
       title: deck.title,
       headerRight: (
-        <Button
-        onPress={() => navigation.navigate(
-          'CreateQuestion',
-          { title: deck.title }
-        )}
-        title="Add"
-      />
+        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('CreateDeck')}>
+          <Entypo name='plus' size={30} color={white} />
+        </TouchableOpacity>
     )
     }
   }
@@ -90,6 +86,11 @@ DeckDetail.propTypes = {
 
 
 const styles = StyleSheet.create({
+  addButton: {
+    backgroundColor: blue,
+    paddingTop: 10.0,
+    paddingRight: 16.0
+  },
   quizButton: {
     padding: 12,
     backgroundColor: green,
