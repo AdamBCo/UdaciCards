@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 5,
     backgroundColor: white,
-    borderBottom: gray,
     borderStyle: 'solid',
   },
   title: {
