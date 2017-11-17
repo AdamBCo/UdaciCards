@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { white, red, green, gray, blue } from '../../utils/colors'
 
-import { clearLocalNotification } from '../../utils/notifications'
+import { setLocalNotification, clearLocalNotification } from '../../utils/notifications'
 
 
 class QuizView extends Component {
@@ -19,6 +19,10 @@ class QuizView extends Component {
   constructor(props, context) {
     super(props, context);
     this.onRestartButtonPressed = this.onRestartButtonPressed.bind(this);
+  }
+
+  componentDidMount() {
+    setLocalNotification()
   }
 
   onRestartButtonPressed() {
