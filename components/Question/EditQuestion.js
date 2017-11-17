@@ -18,7 +18,7 @@ class EditQuestion extends Component {
 
   constructor(props, context) {
     super(props, context);
-    this.onSave = this.onSave.bind(this);
+    this.onSaveButtonPressed = this.onSaveButtonPressed.bind(this);
   }
 
   componentDidMount() {
@@ -32,10 +32,9 @@ class EditQuestion extends Component {
 
   }
 
+  onSaveButtonPressed() {
 
-  onSave() {
-
-    const { navigation } = this.props
+    const { navigation, dispatch } = this.props
     const { question, answer } = this.state
 
     const title = navigation.state.params.deck.title

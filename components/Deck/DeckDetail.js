@@ -23,7 +23,13 @@ class DeckDetail extends Component {
     return {
       title: deck.title,
       headerRight: (
-        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('CreateDeck')}>
+        <TouchableOpacity style={styles.addButton} onPress={
+          () => navigation.navigate(
+          'CreateQuestion',
+          {
+            title: deck.title
+          }
+          )}>
           <Entypo name='plus' size={30} color={white} />
         </TouchableOpacity>
     )
@@ -48,6 +54,7 @@ class DeckDetail extends Component {
 
   }
 
+  keyExtractor = item => item.question;
 
   render() {
 
@@ -63,8 +70,10 @@ class DeckDetail extends Component {
 
     return (
       <View>
+        <Text style={styles.numberOfQuestions}>{questions.length} Questions</Text>
         <FlatList
           data={questions}
+          keyExtractor={this.keyExtractor}
           renderItem={({item}) => (
             <Question 
             navigation={navigation}
@@ -72,9 +81,13 @@ class DeckDetail extends Component {
             deck={deck}/>
           )}
         />
-        <TouchableOpacity style={styles.quizButton} onPress={this.onQuizButtonPressed}>
-          <Text style={styles.buttonText}>Start Quiz</Text>
-        </TouchableOpacity>
+
+        {questions.length > 0 &&
+          <TouchableOpacity style={styles.quizButton} onPress={this.onQuizButtonPressed}>
+            <Text style={styles.buttonText}>Start Quiz</Text>
+          </TouchableOpacity>
+        }
+
       </View>
     )
   }
@@ -86,6 +99,13 @@ DeckDetail.propTypes = {
 
 
 const styles = StyleSheet.create({
+  numberOfQuestions: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: gray,
+    margin: 0,
+    height: 32
+  },
   addButton: {
     backgroundColor: blue,
     paddingTop: 10.0,

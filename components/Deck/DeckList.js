@@ -13,10 +13,6 @@ import { setDecks } from '../../redux/modules/decks'
 
 class DeckList extends Component {
 
-  constructor(props, context) {
-    super(props, context);
-  }
-
   static navigationOptions = ({ navigation }) => {
     return {
         title: 'Decks',
@@ -37,6 +33,8 @@ class DeckList extends Component {
     })
 
   }
+
+  keyExtractor = item => item.title;
 
   renderItem = ({item}) => {
     const { navigation, decks} = this.props;
@@ -60,6 +58,7 @@ class DeckList extends Component {
       <View>
         <FlatList
           data={Object.keys(decks)}
+          keyExtractor={this.keyExtractor}
           renderItem={this.renderItem}
         />
       </View>

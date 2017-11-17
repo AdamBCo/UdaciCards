@@ -64,6 +64,7 @@ export const updateQuestionForDeck = async (title, originalText, card) => {
     decks[title].questions = questions
     
     await AsyncStorage.setItem(DATABASE_KEY, JSON.stringify(decks));
+
     return decks;
   } catch (error) {
     console.log(error);
